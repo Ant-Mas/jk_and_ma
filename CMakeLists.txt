@@ -40,7 +40,6 @@ add_executable(jk_and_ma
     OLED_I2C.c
     encoder.c
     notes.c
-    adc.c
     loop.c
     usb_descriptors.c
     )
@@ -63,7 +62,6 @@ target_link_libraries(jk_and_ma
         tinyusb_device
         tinyusb_board
         hardware_i2c
-        hardware_adc
         hardware_timer
         hardware_pwm
         hardware_irq

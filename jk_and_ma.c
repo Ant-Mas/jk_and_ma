@@ -12,7 +12,6 @@
 #include "OLED_I2C.h"
 #include "encoder.h"
 #include "notes.h"
-#include "adc.h"
 #include "loop.h"
 
 #define I2C_PORT i2c0
@@ -58,7 +57,6 @@ int main()
 
     OLED_init();
     init_encoder();
-    init_adc();
     init_loop();
     init_notes(36, 0);
     uint8_t played_note;
