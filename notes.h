@@ -2,7 +2,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#define NOTE_COUNT 48
+#define NOTE_COUNT 48 // = LINE_COUNT * 3
+#define LINE_COUNT 16 // = NOTE_COUNT / 3
 #define PARAM_COUNT 3
 
 typedef struct {

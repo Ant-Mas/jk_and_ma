@@ -12,7 +12,7 @@
 
 void init_loop();
 
-void play_note(uint8_t flag, uint8_t channel, note* note);
+void play_note(uint8_t flag, note* note0, note* note1, note* note2);
 
 int32_t bpm_to_us(uint8_t BPM); 
 

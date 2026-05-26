@@ -32,6 +32,8 @@ uint8_t *buf[OLED_NUM_PAGES] = {
     PAGE7
 };
 
+uint8_t bpm_show_frames = 0;
+
 void OLED_send_cmd(uint8_t cmd) {
     uint8_t buf[2] = {OLED_COMMAND_MODE, cmd};
     i2c_write_blocking(i2c_default, OLED_I2C_ADDR, buf, 2, false);
@@ -265,9 +267,12 @@ void OLED_render_notes(note* notes, uint8_t current_note) {
     }
     OLED_insert_note_cursor(current_note);
 
-    char bpm[3];
-    sprintf(bpm, "%u", get_bpm());
-    OLED_write_string(OLED_STRING_OFFSET, 6, bpm);
+    if (bpm_show_frames > 0){
+        bpm_show_frames -= 1;
+        char bpm[3];
+        sprintf(bpm, "%u", get_bpm());
+        OLED_write_string(OLED_STRING_OFFSET, 6, bpm);
+    }
     OLED_render();
 }
 
@@ -319,4 +324,8 @@ void OLED_write_note_string(int16_t col, int16_t page, char *str) {
         OLED_write_note(col, page, *str++);
         col+=7;
     }
+}
+
+void show_bpm_for(uint8_t frames){
+    bpm_show_frames = frames;
 }

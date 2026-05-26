@@ -100,3 +100,5 @@ void OLED_insert_note_cursor(uint8_t position);
 void OLED_render_notes(note* notes, uint8_t current_note);
 
 void OLED_render_params(note note, uint8_t current_param);
+
+void show_bpm_for(uint8_t frames);

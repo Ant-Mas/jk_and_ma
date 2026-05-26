@@ -41,12 +41,16 @@ void encoder_move(bool down) {
             notes[current_note].velocity = (uint8_t)((notes[current_note].velocity + value + 128) % 128);
         }
         else if (current_param == 2){
-            loop_after = 1 + (loop_after - 1 + value + (NOTE_COUNT / 3)) % (NOTE_COUNT / 3);
+            loop_after = 1 + (loop_after - 1 + value + LINE_COUNT) % LINE_COUNT;
         }
         OLED_render_params(notes[current_note], current_param);
     }
     else{
-        current_note = (current_note + NOTE_COUNT + value) % NOTE_COUNT;
+        current_note += value + NOTE_COUNT;
+        if(current_note % LINE_COUNT >= loop_after){
+            current_note = current_note + LINE_COUNT*value - current_note % LINE_COUNT;
+        }
+        current_note = (current_note) % NOTE_COUNT;
         OLED_render_notes(notes, current_note);
     }
 }
