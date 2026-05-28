@@ -1,6 +1,5 @@
 #include "loop.h"
 #include <stdlib.h>
-#include "adc.h"
 #include "tusb.h"
 #include "OLED_I2C.h"
 #include "bsp/board.h"
@@ -21,13 +20,13 @@ int32_t bpm_to_us(uint8_t BPM) {
     return 60*1000000/BPM;
 }
 
-void core1_entry(){
+void core1_entry() {
     absolute_time_t next_beat = get_absolute_time();
     note* notes = get_notes();
     uint8_t n = NOTE_COUNT / 3 ;
     bool was_playing = false;
 
-    while(true){
+    while(true) {
         if (loopStateFlag) {
             if(time_reached(next_beat)){
                 board_led_on();

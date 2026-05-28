@@ -24,7 +24,6 @@ volatile bool startStopPressedFlag = false;
 volatile bool encoderDirection;
 
 void gpio_callback(uint gpio, uint32_t events) {
-    
     if (gpio == SWITCH_PIN)
         switchPressedFlag = true;
     else if (gpio == START_STOP_PIN)

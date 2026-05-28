@@ -4,7 +4,7 @@
 #include "loop.h"
 
 note notes[NOTE_COUNT];
-uint8_t current_note = 0;
+uint8_t current_note = NOTE_COUNT - 1;
 uint8_t current_param = 0;
 uint8_t loop_after = 16;
 bool choosing_note = false;
@@ -48,9 +48,16 @@ void encoder_move(bool down) {
     else{
         current_note += value + NOTE_COUNT;
         if(current_note % LINE_COUNT >= loop_after){
-            current_note = current_note + LINE_COUNT*value - current_note % LINE_COUNT;
+            if (value == 1){
+                current_note = current_note - current_note % LINE_COUNT + LINE_COUNT;
+            }
+            else if (value == -1){
+                current_note = current_note - current_note % LINE_COUNT + loop_after - 1;
+            }
         }
         current_note = (current_note) % NOTE_COUNT;
+
+        OLED_render_notes(notes, current_note);
         OLED_render_notes(notes, current_note);
     }
 }
