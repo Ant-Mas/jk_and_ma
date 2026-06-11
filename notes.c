@@ -35,7 +35,7 @@ void encoder_move(bool down) {
     }
     else if(choosing_note){
         if(current_param == 0){
-            notes[current_note].pitch = (uint8_t)((notes[current_note].pitch + value - 11) % 25 + 36);
+            notes[current_note].pitch = (uint8_t)((notes[current_note].pitch + value + 13) % 37 + 24);
         }
         else if (current_param == 1) {
             notes[current_note].velocity = (uint8_t)((notes[current_note].velocity + value + 128) % 128);
@@ -58,12 +58,11 @@ void encoder_move(bool down) {
         current_note = (current_note) % NOTE_COUNT;
 
         OLED_render_notes(notes, current_note);
-        OLED_render_notes(notes, current_note);
     }
 }
 
 char decode(note note){
-    return ((note.pitch - 36) * 7 / 25) * 4 + note.velocity / 32 + 1;
+    return ((note.pitch - 24) * 7 / 37) * 4 + note.velocity / 32 + 1;
 }
 
 void switch_press(void){
@@ -107,7 +106,7 @@ char* pitch_to_str(uint8_t pitch){
     str[3] = 0;
     str[1] = ' ';
     str[2] = '0' + pitch/12 - 1;
-    pitch = (pitch - 36) % 12;
+    pitch = pitch % 12;
     switch (pitch)
     {
     case 0:
